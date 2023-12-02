@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+		<script src="swal.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="j.js"></script>
+		<link href="boot.css" rel="stylesheet"  crossorigin="anonymous">
+    </head>
+    <body>
+		<div class="container">
+			<form action="">
+				<h1>Cadastro de Produto </h1>
+				<hr>
+				<input type="hidden" name="" id="id" value="" class="form-control">
+				<h1>Descrição </h1>
+				<input type="text" name="" id="descricao" value="desccc...." class="form-control">
+				<hr>
+				<label>Preço<br>
+				<input name="" type="text" id="preco" size="60" class="form-control" value="1111" /></label><br />
+				<label>Data Fabricação:<br>
+				<input name="" type="text" id="dataFab" size="40" class="form-control" value="2023-09-01" /></label><br />
+				<label>Marca:<br>
+				<input name="" type="text" id="marca" size="40" class="form-control" value="Apple" /></label><br />
+				<label>Origem:<br>
+				<select id="origem" class="form-control">
+					<option value="Nacional">Nacional</option>
+					<option value="Importado">Importado</option>
+				</select></label><br />
+				<label>Fabricante:<br>
+				<input name="ibge" type="text" id="fabricante" size="8" class="form-control" value="Tecent"/></label><br />
+				<br>
+				<button type="button" class="btn btn-danger" onclick="limpa()">Limpar</button>
+
+				<button id="btnGrava" type="button" class="btn btn-primary" onclick="grava()">Grava</button>
+
+				<button type="button" class="btn btn-success" onclick="lista()">Lista</button>
+				
+				<button id="btnAlteracoes" type="button" class="btn btn-primary" onclick="salvaalteracoes()" hidden="hidden">Salva alterações</button>
+
+
+			</form>
+			<p id="produtos"></p>
+		</div>
+	<script>
+		function limpa(){
+			document.getElementById('descricao').value='';
+			document.getElementById('preco').value='';
+			document.getElementById('marca').value='';
+			document.getElementById('dataFab').value='';
+			document.getElementById('origem').value='';
+			document.getElementById('fabricante').value='';
+			console.log("dcsdvsdv");
+		}
+
+		function lista(){
+			document.getElementById('produtos').innerHTML="";
+			$.ajax({
+				method: "POST",
+				url: "back.php",
+				data: { 
+					op:'select',
+					
+				}
+			})
+		.done(function( response ) {
+			let v = JSON.parse(response);
+			//let v = response;
+			console.log(v);
+
+			if(v.length>0){
+				var tabela = "";
+				tabela += '<table class="table table-hover">';
+				tabela +='<thead>';
+				tabela +='<tr>';
+				tabela +='<th scope="col">Descrição</th>';
+				tabela +='<th scope="col">Preço</th>';
+				tabela +='<th scope="col">Fabricante</th>';
+				tabela +='<th scope="col">Marca</th>';
+				tabela +='<th scope="col">Data</th>';
+				tabela +='<th scope="col">Origem</th>';
+				tabela +='<th scope="col">Operações</th>';
+				tabela +='</tr>';
+				tabela +='</thead>';
+				tabela +='<tbody>';
+
+				v.forEach(element => {
+					var botaoEditar = '<button type="button" class="btn btn-warning" onclick="editar('+element.id+')">Editar</button>';
+					var botaoApagar = '<button type="button" class="btn btn-danger" onclick="apagar('+element.id+')">Apagar</button>';
+					tabela += '<tr><td>'+element.descricao+'</td>';
+					tabela += '<td>'+element.preco+'</td>';
+					tabela += '<td>'+element.fabricante+'</td>';
+					tabela += '<td>'+element.marca+'</td>';
+					tabela += '<td>'+element.datafabricacao+'</td>';
+					tabela += '<td>'+element.origem+'</td>';
+					tabela += '<td>'+botaoEditar+' '+botaoApagar+'</td></tr>';
+
+				});
+				tabela +='</tbody>';
+				tabela +='</table>';
+				document.getElementById('produtos').innerHTML += tabela;
+
+			}
+			if(v.message=="ok"){
+				//alert('sucesso');
+				Swal.fire({
+					title: 'Sucesso!',
+					text: 'Do you want to continue',
+					icon: 'success',
+					confirmButtonText: 'Cool'
+				})
+			}else{
+				//alert("Seu cep não foi localizado, por favor digite o endereço");
+			}
+		});
+	}	
+
+		function grava(){
+		var _descricao = document.getElementById('descricao').value;
+		var _preco = document.getElementById('preco').value;
+		var _marca = document.getElementById('marca').value;
+		var _dataFab = document.getElementById('dataFab').value;
+		var _origem = document.getElementById('origem').value;
+		var _fabricante = document.getElementById('fabricante').value;
+
+		$.ajax({
+			method: "POST",
+			url: "back.php",
+			data: { 
+				op:'insert',
+				descricao: _descricao,
+				preco: _preco,
+				marca: _marca,
+				dataFab: _dataFab,
+				origem: _origem,
+				fabricante: _fabricante,
+			 }
+		})
+		.done(function( response ) {
+			let v = JSON.parse(response);
+			//let v = response;
+			console.log(v);
+			if(v.message=="ok"){
+				//alert('sucesso');
+				Swal.fire({
+					title: 'Sucesso!',
+					text: 'Do you want to continue',
+					icon: 'success',
+					confirmButtonText: 'Cool'
+				})
+				limpa();
+			}else{
+				alert("Seu cep não foi localizado, por favor digite o endereço");
+			}
+		});
+	}	
+		
+		function editar(id_){
+			document.getElementById('btnGrava').disabled = true;
+			document.getElementById('btnAlteracoes').hidden = '';
+			$.ajax({
+			method: "POST",
+			url: "back.php",
+			data: { 
+				op:'filtro',
+				id: id_,
+			 }
+		})
+		.done(function( response ) {
+			let v = JSON.parse(response);
+			//let v = response;
+			console.log(v);
+			if(v[0].id>=1){
+				document.getElementById('descricao').value=v[0].descricao;
+				document.getElementById('preco').value=v[0].preco;
+				document.getElementById('marca').value=v[0].marca;
+				document.getElementById('dataFab').value=v[0].datafabricacao;
+				document.getElementById('origem').value=v[0].origem;
+				document.getElementById('fabricante').value=v[0].fabricante;
+
+				document.getElementById('id').value=v[0].id;
+	
+			}else{
+				alert("Seu cep não foi localizado, por favor digite o endereço");
+			}
+		});		
+		}
+		
+		function salvaalteracoes(){
+			var _descricao = document.getElementById('descricao').value;
+			var _preco = document.getElementById('preco').value;
+			var _marca = document.getElementById('marca').value;
+			var _dataFab = document.getElementById('dataFab').value;
+			var _origem = document.getElementById('origem').value;
+			var _fabricante = document.getElementById('fabricante').value;
+			var _id = document.getElementById('id').value;
+
+			$.ajax({
+				method: "POST",
+				url: "back.php",
+				data: { 
+					op:'update',
+					descricao: _descricao,
+					preco: _preco,
+					marca: _marca,
+					dataFab: _dataFab,
+					origem: _origem,
+					fabricante: _fabricante,
+					id: _id,
+				}
+			})
+			.done(function( response ) {
+				let v = JSON.parse(response);
+				//let v = response;
+				console.log(v);
+				if(v.message=="ok"){
+					//alert('sucesso');
+					Swal.fire({
+						title: 'Sucesso!',
+						text: 'Do you want to continue',
+						icon: 'success',
+						confirmButtonText: 'Cool'
+					})
+					lista();
+					limpa();
+					document.getElementById('btnGrava').disabled = false;
+					document.getElementById('btnAlteracoes').hidden = 'hidden';
+			
+				}else{
+					alert("Seu cep não foi localizado, por favor digite o endereço");
+				}
+			});
+		}
+
+		function apagar(id_){
+			const swalWithBootstrapButtons = Swal.mixin({
+			customClass: {
+				confirmButton: "btn btn-success",
+				cancelButton: "btn btn-danger"
+			},
+			buttonsStyling: false
+			});
+			swalWithBootstrapButtons.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonText: "Yes, delete it!",
+			cancelButtonText: "No, cancel!",
+			reverseButtons: true
+			}).then((result) => {
+			if (result.isConfirmed) {
+				swalWithBootstrapButtons.fire({
+				title: "Deleted!",
+				text: "Your file has been deleted.",
+				icon: "success"
+				});
+				$.ajax({
+					method: "POST",
+					url: "back.php",
+					data: { 
+						op:'delete',
+						id: id_
+						}
+					})
+				.done(function( response ) {
+					let v = JSON.parse(response);
+					console.log(v);
+					if(v.message=="ok"){
+						Swal.fire({
+							title: 'Sucesso!',
+							text: 'Produto apagado com sucesso',
+							icon: 'success',
+							confirmButtonText: 'Ok'
+						})
+						lista();
+					}else{
+						Swal.fire({
+							title: 'Erro!',
+							text: 'Produto não localizado',
+							icon: 'error',
+							confirmButtonText: 'Cancelar'
+						})
+					}
+				});
+			} else if (
+				/* Read more about handling dismissals below */
+				result.dismiss === Swal.DismissReason.cancel
+			) {
+				swalWithBootstrapButtons.fire({
+				title: "Cancelled",
+				text: "Your imaginary file is safe :)",
+				icon: "error"
+				});
+			}
+			});
+
+			
+		}
+
+		function buscaRuas(){
+		var param1 = document.getElementById('cidade').value;
+		$.ajax({
+			method: "POST",
+			url: "back.php",
+			data: { cidade_: param1 }
+		})
+		.done(function( response ) {
+			let v = JSON.parse(response);
+			if(v[0].status==0){
+				alert("Sua rua não foi localizada, por favor digite novamente");
+				return;
+			}else{
+				document.getElementById("ruas").innerHTML = "";
+				var tabela = "<table class='table table-hover'>";
+					tabela += "<thead><tr><th>Estado</th><th>Cidade</th><th>Bairro</th><th>Rua</th><th>IBGE</th></tr></thread>";
+					tabela += "<tbody>";
+				for (let index = 1; index < v.length; index++) {
+					const element = v[index];
+					tabela += "<tr><td>"+element.Estado+"</td>";
+					tabela += "<td>"+element.Cidade+"</td>";
+					tabela += "<td>"+element.Bairro+"</td>";
+					tabela += "<td>"+element.Rua+"</td>";
+					tabela += "<td>"+element.Ibge+"<td></tr>";
+				}
+				tabela += "</tbody>";
+				tabela += "</table>";
+				document.getElementById("ruas").innerHTML += tabela;
+			}
+		});
+	}	
+	</script>
+	</body>
+</html>
+
+
+
+
+
+
+
