@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../plugins/alertifyjs/alertify.js"></script>
+    <link rel="stylesheet" href="../../plugins/alertifyjs/css/alertify.min.css" />
+    <!-- include a theme -->
+    <link rel="stylesheet" href="../../plugins/alertifyjs/css/themes/default.min.css" />
+</head>
+<body>
+    
+    <script>
+        //exemplos https://alertifyjs.com/
+        alertify.prompt("Esta é uma pergunta.", "Padrão",
+            function(evt, value ){
+                alertify.success('Ok: ' + value);
+            },
+            function(){
+                alertify.error('Cancelar');
+            
+            })
+        ;
+    </script>
+
+    <script>
+        alertify.alert('Pronto!');
+    </script>
+
+</body>
+</html>
