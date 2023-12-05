@@ -26,9 +26,9 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Iniciar sessão</p>
 
-      <form action="./pages/templates/login.php" method="post">
+      <form id="formLogin" action="./pages/templates/login.php" method="post">
         <div class="input-group mb-3">
-          <input name="email" type="email" class="form-control" placeholder="Email" value="mar@feevale.br">
+          <input name="email" type="email" class="form-control" placeholder="Email" value="marcelojtelles@gmail.com">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password" value="123">
+          <input name="password" type="password" class="form-control" placeholder="Password" value="111111">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -54,7 +54,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-success btn-block">Entrar</button>
+            <button id="btnEntrar" type="button" class="btn btn-success btn-block" onclick="entrar()">Entrar</button>
           </div>
           <!-- /.col -->
         </div>
@@ -67,7 +67,7 @@
           <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
         </a> -->
         <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+          <i class="fab fa-google-plus mr-2"></i> Entrar com conta Google
         </a>
       </div>
       <!-- /.social-auth-links -->
@@ -76,7 +76,7 @@
         <a href="forgot-password.html">Esqueci minha senha</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Registrar novo membro</a>
+        <a href="register.html" class="text-center">Registrar novo usuário</a>
       </p>
     </div>
     <!-- /.login-card-body -->
@@ -85,10 +85,17 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="./plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="./plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<script src="./dist/js/adminlte.min.js"></script>
+
+<script>
+  function entrar(){
+    document.getElementById('btnEntrar').disabled="disabled";
+    document.getElementById('formLogin').submit();
+  }
+</script>
 </body>
 </html>

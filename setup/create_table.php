@@ -9,8 +9,11 @@ echo " ".$time_start;
 
 $db = new Conn_mysql(); 
 
-// $comando="CREATE database fip;";
-// $db->multisql($comando);
+$comando="DROP database fip;";
+$db->multisql($comando);
+
+$comando="CREATE database fip;";
+$db->multisql($comando);
 
 $comando="use fip;";
 $db->multisql($comando);
@@ -25,8 +28,52 @@ $comando="CREATE TABLE IF NOT EXISTS `projetos` (
 	`modified` timestamp NULL ON UPDATE CURRENT_TIMESTAMP ,
 	PRIMARY KEY (`id`)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;";
+$db->multisql($comando);
+
+$comando="CREATE TABLE IF NOT EXISTS `usuarios` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`matricula` char(7) NULL,
+	`nome` varchar(100) NULL,
+	`email` varchar(50) NOT NULL UNIQUE,
+	`username` varchar(50) NULL,
+	`tipoUsuario` varchar(50) NULL,
+	`senha` varchar(150) NULL,
+	`telefone` varchar(50) NULL,
+	`google_uid` varchar(255) NULL,
+	`picture` text NULL,
+	`created` timestamp NULL DEFAULT CURRENT_TIMESTAMP, 
+	`modified` timestamp NULL ON UPDATE CURRENT_TIMESTAMP ,
+	PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;";
+$db->multisql($comando);
+
+$comando="CREATE TABLE IF NOT EXISTS `professores` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`nome` varchar(100) NOT NULL,
+	`email` varchar(50) NULL,
+	`telefone` varchar(50) NULL,
+	`created` timestamp NULL DEFAULT CURRENT_TIMESTAMP, 
+	`modified` timestamp NULL ON UPDATE CURRENT_TIMESTAMP ,
+	PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;";
 
 $db->multisql($comando);
+
+$comandos = "../dados/professores.sql";
+$db->multi($comandos);
+
+$comando="CREATE TABLE IF NOT EXISTS `professores` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`nome` varchar(100) NOT NULL,
+	`email` varchar(50) NULL,
+	`telefone` varchar(50) NULL,
+	`created` timestamp NULL DEFAULT CURRENT_TIMESTAMP, 
+	`modified` timestamp NULL ON UPDATE CURRENT_TIMESTAMP ,
+	PRIMARY KEY (`id`)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8  AUTO_INCREMENT=1 ;";
+
+$db->multisql($comando);
+
 
 //imprimindo os times finais
 $vData_ = date("Y-m-dH:i:s");

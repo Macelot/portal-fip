@@ -23,9 +23,21 @@ session_start();
   <title>Gestão FIP 2024</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!--link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"-->
+  
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="../../dist/css/fontGoogle.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+
+ <!-- Tempusdominus Bootstrap 4 -->
+ <link rel="stylesheet" href="../../plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+<!-- dropzonejs -->
+<link rel="stylesheet" href="../../plugins/dropzone/min/dropzone.min.css">
+
+<!-- dropzonejs -->
+<script src="../../plugins/dropzone/min/dropzone.min.js"></script>
   <!-- Theme style -->
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
 
@@ -40,8 +52,9 @@ session_start();
   <link rel="stylesheet" href="../../plugins/alertifyjs/css/themes/default.min.css" />
   <script src="../../dist/js/swal.js"></script>
 
-   <!--  Auto Complete JS -->
+  <!--  Auto Complete JS -->
   <script src="../../dist/js/auto-complete.js"></script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -54,10 +67,10 @@ session_start();
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index3.html" class="nav-link">Home</a>
+        <a href="../templates/bemvindo.php" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="https://www.feevale.br/cursos-e-eventos/feira-de-iniciacao-a-pesquisa-2023" target="_blank" class="nav-link">Contato</a>
       </li>
     </ul>
 
@@ -86,14 +99,13 @@ session_start();
       </li>
 
       <!-- Messages Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
             <div class="media">
               <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
@@ -105,11 +117,9 @@ session_start();
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
             <div class="media">
               <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -121,11 +131,9 @@ session_start();
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
             <div class="media">
               <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
@@ -137,14 +145,13 @@ session_start();
                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
               </div>
             </div>
-            <!-- Message End -->
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
         </div>
-      </li>
+      </li> -->
       <!-- Notifications Dropdown Menu -->
-      <li class="nav-item dropdown">
+      <!-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -169,17 +176,17 @@ session_start();
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
-      </li>
+      </li> -->
     </ul>
   </nav>
   <!-- /.navbar -->
@@ -187,9 +194,9 @@ session_start();
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-      <img src="../../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    <a href="#" class="brand-link">
+      <img src="../../dist/img/Feevale_cropped.png" alt="Gestão Fip Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">Gestão FIP</span>
     </a>
 
     <!-- Sidebar -->
@@ -205,7 +212,7 @@ session_start();
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      <!-- <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -214,7 +221,7 @@ session_start();
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -224,7 +231,7 @@ session_start();
           
           <li class="nav-item">
             <a href="./projeto.php?pagina=projeto" class="nav-link <?php echo $projeto;?>">
-             <i class="fas fa-folder" style="color: #026600;"></i>
+             <i class="fas fa-folder" style="color: #ffde01"></i>
               <p>
                 Projetos
               </p>
@@ -232,7 +239,7 @@ session_start();
           </li>
           <li class="nav-item">
             <a href="./novoprojeto.php?pagina=novoprojeto" class="nav-link <?php echo $novoprojeto;?>">
-             <i class="fas fa-folder" style="color: #026600;"></i>
+             <i class="fas fa-folder" style="color: #ffde01;"></i>
               <p>
                 Novo Projeto
               </p>
@@ -240,7 +247,7 @@ session_start();
           </li>
           <li class="nav-item">
             <a href="../widgets.html" class="nav-link">
-             <i class="fas fa-user-clock" style="color: #026600;"></i>
+             <i class="fas fa-user-clock" style="color: #ffde01;"></i>
               <p>
                 Disposição mediadores
               </p>
@@ -248,7 +255,7 @@ session_start();
           </li>
           <li class="nav-item">
             <a href="../widgets.html" class="nav-link">
-            <i class="fas fa-id-card-alt" style="color: #026600;"></i>
+            <i class="fas fa-id-card-alt" style="color: #ffde01;"></i>
               <p>
                 Avaliadores
               </p>
@@ -256,7 +263,7 @@ session_start();
           </li>
           <li class="nav-item">
             <a href="./estudantes.php?pagina=estudantes" class="nav-link <?php echo $estudantes;?>">
-             <i class="fas fa-users" style="color: #026600;"></i>
+             <i class="fas fa-users" style="color: #ffde01;"></i>
               <p>
                 Estudantes
               </p>
@@ -265,7 +272,7 @@ session_start();
 
           <li class="nav-item">
             <a href="./logoff.php" class="nav-link"> 
-            <i class="fas fa-sign-out-alt" style="color: #026600;"></i>
+            <i class="fas fa-sign-out-alt" style="color: #ffde01;"></i>
             <p>
               Sair
             </p>

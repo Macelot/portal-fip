@@ -3,7 +3,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 1.0.0
     </div>
-    <strong>Copyright &copy; 2023-2023 <a href="https://adminlte.io">Gestão Fip 2024</a></strong>.
+    <strong>Copyright &copy; <a href="#">Gestão Fip 2024</a></strong>.
   </footer>
 
   <!-- Control Sidebar -->

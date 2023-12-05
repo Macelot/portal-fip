@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Página de registro</title>
+
+			<link href="dist/css/styleRegister.css" rel="stylesheet" type="text/css">
+
+			<!-- Google Font: Source Sans Pro -->
+			<link rel="stylesheet" href="dist/css/fontGoogle.css">
+			<!-- Font Awesome -->
+			<link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+
+			<!-- Tempusdominus Bootstrap 4 -->
+			<link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+
+			<!-- Theme style -->
+			<link rel="stylesheet" href="dist/css/adminlte.min.css">
+
+			<!-- Alertas Sweet-->
+			<script src="./dist/js/swal.js"></script>
+
+			<!-- validar email-->
+			<script src="./dist/js/valida-email.js"></script>
+
+		
+	</head>
+	<body>
+		<div class="register">
+			<h1>Registrar</h1>
+			<form action="#" method="post" autocomplete="off">
+				<label for="username">
+					<i class="fas fa-user"></i>
+				</label>
+				<input type="text" name="username" placeholder="Usuário" id="username" required>
+				<label for="password">
+					<i class="fas fa-lock"></i>
+				</label>
+				<input type="password" name="password" placeholder="Senha" id="password" onkeyup="validaSenha()" required>*
+
+				<label for="password">
+					<i class="fas fa-lock"></i>
+				</label>
+				<input type="password" name="password2" placeholder="Repita a Senha" id="password2" onkeyup="validaSenha()" validate required>*
+
+				<label for="email">
+					<i class="fas fa-envelope"></i>
+				</label>
+				<input type="email" name="email" placeholder="Email" id="email" required>
+				<input id="btnRegistrar" type="submit" value="Registrar" onclick="grava()" class="btn btn-primary btn-block">
+				<p>* Senha deve ter entre 5 e 20 caracteres</p>
+				<p> (apenas letras e números).</p>
+			</form>
+
+			<p id="result"></p>
+
+		</div>
+		<script>
+			document.getElementById('btnRegistrar').disabled="disabled";
+			
+
+		function validaSenha(){
+			var password1 = document.getElementById('password').value;
+			var password2 = document.getElementById('password2').value;
+			if( (password1.length>=5) && (password2.length>=5)  ){
+				if(password1==password2){
+					document.getElementById('btnRegistrar').disabled="";
+					//return true;
+				}
+			}else{
+				document.getElementById('btnRegistrar').disabled="disabled";
+			}
+			
+		}
+		
+		function grava(){
+			//verificar se já existe
+
+
+			//gravar
+			document.getElementById('password').disabled="disabled";
+			document.getElementById('password2').disabled="disabled";
+			document.getElementById('btnRegistrar').disabled="disabled";
+			var _username = document.getElementById('username').value;
+			var _password = document.getElementById('password').value;
+			var _email = document.getElementById('email').value;
+	
+			$.ajax({
+				method: "POST",
+				url: "./php/back.php",
+				data: { 
+					op:'insert',
+					tabela:'usuarios',
+					obrigatorios:['username','password','email'],
+					dados:{
+						username: _username,
+						senha: _password,
+						email: _email,
+					}
+				}
+			})
+			.done(function( response ) {
+				let v = JSON.parse(response);
+				//let v = response;
+				console.log(v);
+				if(v.message=="ok"){
+					Swal.fire({
+						title: 'Sucesso!',
+						text: 'Usuário registrado com sucesso',
+						icon: 'success',
+						confirmButtonText: 'Ok'
+					});
+					document.getElementById('btnRegistrar').disabled="";
+				}else{
+					Swal.fire({
+						title: 'Erro!',
+						text: 'Não foi possível registrar seu usuário. '+v.message,
+						icon: 'error',
+						confirmButtonText: 'Ok'
+					})
+				}
+			});
+		}
+	</script>
+	<script src="./plugins/jquery/jquery.min.js"></script>
+	<script>
+		$('#email').on('input', validate);
+	</script>
+	</body>
+</html>

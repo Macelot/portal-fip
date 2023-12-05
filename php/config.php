@@ -6,11 +6,17 @@ if($_SERVER['HTTP_HOST']=="localhost"){
   define('PASS', 'usbw');
   define('BASE', 'test');
   define('PORT', '3306');
+  define('SENHAAPPMAIL', 'lfr');
+  define('EMAIL', 'm');
+  define('NOME', 'Maes');
   $DATABASE_HOST = 'localhost';
   $DATABASE_USER = 'root2';
   $DATABASE_PASS = 'usbw';
   $DATABASE_NAME = 'test';
   $DATABASE_PORT = '3306';
+  $SENHAAPPMAIL = 'ldztfr';
+  $EMAIL = 'marom';
+  $NOME = 'MarcTelles';
 }else {
   define('HOST', 'localhost');
   define('USER', 'aluno');

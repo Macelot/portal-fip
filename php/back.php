@@ -8,16 +8,20 @@ $dados->getDB("fip");
 
 if(isset($_POST['op'])){
     $op = $_POST['op'];
+    $tabela = $_POST['tabela'];
+    $obrigatorios = $_POST['obrigatorios'];
     if($op=='insert'){
         $projeto = $_POST['dados'];
-        if($projeto['titulo']==""){
-            $resultado['status'] = false;
-            $resultado['message'] = "Preencha o título";
-            $resultado['result'] = "erro";
-            echo json_encode($resultado);  
-            exit();
-        }          
-        $resultado = $dados->insert($projeto,'projetos');
+        if(count($obrigatorios)>0){
+            if($obrigatorios[0]==""){
+                $resultado['status'] = false;
+                $resultado['message'] = "Preencha "+$obrigatorios[0];
+                $resultado['result'] = "erro";
+                echo json_encode($resultado);  
+                exit();
+            } 
+        }     
+        $resultado = $dados->insert($projeto,$tabela);
         echo json_encode($resultado);
     }
 
